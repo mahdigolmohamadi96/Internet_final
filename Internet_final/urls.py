@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 import Internet
-from Internet.views import login
+from Internet.views import login, Home, UserHome
 from Internet.views import SignUp
 from django.conf import settings
 
@@ -28,6 +28,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login.as_view()),
     path('signup/',SignUp.as_view()),
+    path('home/',Home.as_view()),
+    path('userHome',UserHome.as_view()),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

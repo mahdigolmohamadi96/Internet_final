@@ -4,32 +4,38 @@
 
 <head>
 
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  <title>CodePen - Login </title>
+    <title>CodePen - Login </title>
 
-  <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
 
-    <link rel="stylesheet" href="{%  static 'css/style.css' %}" media="screen" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" type="text/css"/>
 
 </head>
 
 <body>
 
-  <div class="wrap">
-		
-		<input type="text" placeholder="username" required>
-		<div class="bar">
-			<i></i>
-		</div>
-		<input type="password" placeholder="password" required>
-		<a href="" class="forgot_link">forgot ?</a>
-		<button>Sign in</button>
+<div class="wrap">
+    <form action="" method="post">
+        <input name="username" type="text" placeholder="username" required>
+        <div class="bar">
+            <i></i>
+        </div>
+        <input name="password" type="password" placeholder="password" required>
+        <a href="" class="forgot_link">forgot ?</a>
 
-      <a href="/signup"><button>Sign up</button></a>
-	</div>
+        <input type="submit">Sign in</input>
 
-  <script src="{% static 'js/index.js' %}"></script>
+    </form>
+
+
+        <a href="/signup">
+            <button>Sign up</button>
+        </a>
+</div>
+
+<script src="{% static 'js/index.js' %}"></script>
 
 </body>
 
