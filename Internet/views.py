@@ -46,9 +46,10 @@ class SignUp(APIView):
 
 
 class Home(APIView):
+    permission_classes = (CheckAuth,)
     def get(self, req):
-        print('req == ' ,req)
-        a = LoginDB.objects.get(username='y')
+        print('req == ' ,req.user)
+        a = LoginDB.objects.get(username=req.user)
         return render(req, "Guest.html", {'name': a.username})
 
 
