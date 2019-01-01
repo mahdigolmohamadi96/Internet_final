@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 from Internet.models import LoginDB
 from Internet.permissions import CheckAuth
 from Internet.serializers import signUpserializer, LoginSerializer
+from Internet_final.settings import online
 
 
 class login(APIView):
@@ -50,7 +51,7 @@ class Home(APIView):
     def get(self, req):
         print('req == ' ,req.user)
         a = LoginDB.objects.get(username=req.user)
-        return render(req, "Guest.html", {'name': a.username})
+        return render(req, "Guest.html", {'name': a.username , 'onlines' : [x.username for x in online]})
 
 
 class UserHome(APIView):

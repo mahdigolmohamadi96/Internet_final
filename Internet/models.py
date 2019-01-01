@@ -14,4 +14,5 @@ class LoginDB(User):
     average_user_score = models.FloatField(null=True)
     birth_date = models.DateField()
     sex = models.CharField(max_length=7)
+    isadmin = models.BooleanField(null=True)
     # password = models.CharField(max_length=30)

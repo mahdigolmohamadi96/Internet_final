@@ -4,6 +4,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import BasePermission
 
 from Internet.models import LoginDB
+from Internet_final.settings import online
 
 
 class CheckAuth(BasePermission):
@@ -24,5 +25,6 @@ class Auth(BaseAuthentication):
             user = Token.objects.get(key=cook).user
         except:
             raise AuthenticationFailed('ridi')
+        online.add(user)
         return (user , None)
 
