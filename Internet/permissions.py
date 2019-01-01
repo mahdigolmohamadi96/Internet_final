@@ -24,7 +24,8 @@ class Auth(BaseAuthentication):
         try:
             user = Token.objects.get(key=cook).user
         except:
-            raise AuthenticationFailed('ridi')
+            return None
+            # raise AuthenticationFailed('ridi')
         online.add(user)
         return (user , None)
 
