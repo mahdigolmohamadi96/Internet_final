@@ -1,0 +1,153 @@
+html{
+    height: 100%;
+}
+
+
+body {
+    background: url("/static/picture/back.jpg") fixed no-repeat center center;
+    background-size : cover;
+    -webkit-background-size : cover;
+    -moz-background-size: cover;
+    -moz-background-size : cover; 
+    height: 100%;
+}
+
+
+.divr {
+    float: right;
+    width: 35%;
+    height: 80%;
+    margin-right: 15%;
+    margin-top: 5%;
+    background-color: white;
+    /* display: inline; */
+}
+
+.divl {
+    float: left;
+    width: 35%;
+    height: 80%;
+    margin-left: 15%;
+    margin-top: 5%;
+    background-color: whitesmoke;
+    /* display: inline; */
+}
+
+.player {
+    margin-left: 40%;
+    margin-top: 25%;
+    font-size: 180%;
+}
+
+.score{
+    margin-left: 10%;
+    font-size: 130%;
+    color: red;
+    
+}
+
+.divcurr {
+    float: right;
+    width: 40%;
+    height: 80px;
+    margin-right: 65%;
+    margin-top: 30%;
+    background-color: red;
+    /* display: inline; */
+}
+
+.txt-curr {
+    text-align: center;
+    font-size: 60%;
+}
+
+.num-curr {
+    text-align: center;
+    font-size: 60%;
+    color: white;
+}
+
+
+.img {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    /* left: 735px;
+    top: 500px; */
+    margin-left: 35%;
+    margin-top: 30%;
+    box-shadow: 0px 0px 5px 1px gray;
+    z-index: 2;
+}
+
+.img2 {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    /* left: 735px;
+    top: 500px; */
+    margin-left: 35%;
+    margin-top: 60%;
+    box-shadow: 0px 0px 5px 1px gray;
+    z-index: 2;
+}
+
+.between {
+    position: absolute;
+    margin-left: 40%;
+    margin-top: 5%;
+    width: 20%;
+    height: 80%;
+    background-color: transparent;
+    z-index: 2;
+}
+
+.new-game-button {
+    background-color: transparent;
+    margin-left: 25%;
+    margin-top: 20%;
+    border: 0px;
+    font-size: 120%;
+    color: black;
+}
+
+.rol-dice-button {
+    background-color: transparent;
+    margin-left: 27%;
+    margin-top: 100%;
+    border: 0px;
+    font-size: 120%;
+    color: black;
+}
+
+.Hold-button {
+    background-color: transparent;
+    margin-left: 35%;
+    margin-top: 10%;
+    border: 0px;
+    font-size: 110%;
+    color: black;
+}
+
+.Score-inp {
+    background-color: transparent;
+    width: 100px;
+    color: black;
+    border : 1px solid black;
+    border-radius: 6px;
+    text-align: center;
+    margin-top: 10%;
+    margin-left: 30%;
+    
+}
+
+.fas {
+    color: red;
+}
+
+
+
+
+
+
+

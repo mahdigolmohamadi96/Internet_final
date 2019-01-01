@@ -22,7 +22,8 @@ class Auth(BaseAuthentication):
         if not cook:
             return None
         try:
-            user = Token.objects.get(key=cook).user
+            user = Token.objects.get(key=cook).user_id
+            user = LoginDB.objects.get(id=user)
         except:
             return None
             # raise AuthenticationFailed('ridi')

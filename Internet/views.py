@@ -14,6 +14,7 @@ from Internet.models import LoginDB
 from Internet.permissions import CheckAuth
 from Internet.serializers import signUpserializer, LoginSerializer
 from Internet_final.settings import online
+from game.models import Gamedb
 
 
 class login(APIView):
@@ -44,7 +45,7 @@ class SignUp(APIView):
     def post(self, req):
         s = signUpserializer(data=req.data)
         s.is_valid(True)
-        s.save()
+
         return HttpResponseRedirect(redirect_to='profile.html')
 
 

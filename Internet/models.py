@@ -16,3 +16,4 @@ class LoginDB(User):
     sex = models.CharField(max_length=7)
     isadmin = models.BooleanField(null=True)
     # password = models.CharField(max_length=30)
+

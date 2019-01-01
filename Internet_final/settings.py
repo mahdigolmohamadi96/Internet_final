@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Internet.apps.InternetConfig',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'game.apps.GameConfig',
 ]
 
 MIDDLEWARE = [

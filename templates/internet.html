@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{#    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />#}
+{#    <script src="main.js"></script>#}
+    <link rel="stylesheet" href="../static/css/GameCss.css">
+</head>
+<body>
+
+
+    <div id="player1" class="divr">
+        <div class="player">
+            <p id="playern1">Player1</p>
+            <p id="point1" class="score">0</p>
+            <div class="divcurr">
+                <p class="txt-curr">current</p>
+                <p id="curr1" class="num-curr">0</p>
+            </div>
+        </div>
+    </div>
+    <div id="player0" class="divl">
+        <div class="player">
+            <p id="playern0" >Player0</p>
+            <p id="point0" class="score">0</p>
+            <div class="divcurr">
+                <p class="txt-curr">current</p>
+                <p id="curr0" class="num-curr">0</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="between">
+        <button class="new-game-button" onclick="newgame()" ><i class="fas fa-plus"></i> new game</button>
+        <div>
+        <img id="dice-pic" class="img" src="/static/picture/dice-2.png" >
+        <img id="dice-pic2" class="img2" src="/static/picture/dice-3.png" >
+        </div>
+        <button id="roll" class="rol-dice-button" ><i class="fas fa-redo"></i> Roll Dice</button>
+        <button id="hold" class="Hold-button" ><i class="fas fa-file-download"></i> Hold</button> 
+        <input type="text" value="100" id="lim" class="Score-inp">   
+    </div>
+
+    
+
+
+
+    <script src="../static/js/code.js"></script>
+</body>
+
+</html>

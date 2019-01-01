@@ -24,6 +24,7 @@ from django.conf import settings
 
 from django.conf.urls.static import static
 
+from game.views import MakeGame, GamePlay
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,7 +32,9 @@ urlpatterns = [
     path('signup/',SignUp.as_view()),
     path('signout/',Signout.as_view()),
     path('home/',Home.as_view()),
-    path('userHome',UserHome.as_view()),
+    path('userHome/',UserHome.as_view()),
+    path('makeGame/',MakeGame.as_view()),
+    path('playGame/',GamePlay.as_view()),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

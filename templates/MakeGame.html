@@ -1,0 +1,30 @@
+{% extends 'home.html' %}
+
+{% block makeGame %}
+    <p>Mak you're game here</p>
+
+
+    <form method="Post" action="/makeGame/">
+        <fieldset>
+            <h2 class="fs-title">creat game</h2>
+            <input type="text" name="maxscore" placeholder="maxscore"/>
+            <br>
+            <input type="text" name="hold" placeholder="hold"/>
+            <br>
+            <input type="text" name="dicetimes" placeholder="dicetimes"/>
+            <br>
+            <LABEL>
+                <input type="radio" name="dicenum" value="1"/>1</LABEL>
+            <LABEL>
+                <input type="radio" name="dicenum" value="2"/> 2</LABEL>
+            <LABEL>
+                <input type="radio" name="dicenum" value="3"/> 3</LABEL>
+            <LABEL>
+                <input type="radio" name="dicenum" value="4"/> 4</LABEL>
+            <br>
+            <br>
+            <input type="submit" name="next" value="SignUp!"/>
+        </fieldset>
+    </form>
+
+{% endblock makeGame %}
