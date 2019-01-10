@@ -28,35 +28,46 @@
     <div id="player0" class="divl">
         <div class="player">
             <p id="playern0" >Player0</p>
-            <p id="point0" class="score">0</p>
+            <p id="point0" class="score">{{ p2_total }}</p>
             <div class="divcurr">
                 <p class="txt-curr">current</p>
-                <p id="curr0" class="num-curr">0</p>
+                <p id="curr0" class="num-curr">{{ p2_current }}</p>
             </div>
         </div>
 
     </div>
 
     <div class="between">
-        <button class="new-game-button" onclick="newgame()" ><i class="fas fa-plus"></i> new game</button>
+{#        <button class="new-game-button" onclick="newgame()" ><i class="fas fa-plus"></i> new game</button>#}
         <div>
+{#        {% for foo in dicenum %}#}
+{#            <img id="dice-pic" class="img" src="/static/picture/dice-2.png" >#}
+{#        {% endfor %}#}
+
         <img id="dice-pic" class="img" src="/static/picture/dice-2.png" >
         <img id="dice-pic2" class="img2" src="/static/picture/dice-3.png" >
         </div>
-        <button id="roll" class="rol-dice-button" ><i class="fas fa-redo"></i> Roll Dice</button>
+        <button id="roll" class="rol-dice-button"  ><i class="fas fa-redo"></i> Roll Dice</button>
         <button id="hold" class="Hold-button" ><i class="fas fa-file-download"></i> Hold</button> 
-        <input type="text" value="100" id="lim" class="Score-inp">   
+{#        <input type="text" value="100" id="lim" class="Score-inp">   #}
     </div>
 
     
 
-
+<script src = '../static/vendor/jquery/jquery.js'></script>
     <script type="text/javascript">
         var winlim = {{ winlimit }};
+        var dice = {{ dice }};
         var holdnum ={{ holdnum }};
         var maxdice = {{ maxdice }};
         var dicenum = {{ dicenum }};
-        var gameid = {{ gameid }};
+        var gameid = '{{ gameid }}';
+        var turn = {{ turn }};
+        var p1_current = {{ p1_current }};
+        var p1_total = {{ p1_total }};
+        var p2_current = {{ p1_current }};
+        var p2_total = {{ p2_total }};
+        var winner = {{ winner }};
     </script>
     <script src="../static/js/code.js"></script>
 </body>
