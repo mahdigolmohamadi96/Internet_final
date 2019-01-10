@@ -11,7 +11,7 @@ logger = logging.getLogger('django')
 class MakeGameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gamedb
-        fields = ('hold', 'max', 'dice', 'dicetimes')
+        fields = ('gameName','hold', 'max', 'dice', 'dicetimes')
 
     def validate_hold(self, data):
         print(data)
@@ -20,7 +20,7 @@ class MakeGameSerializer(serializers.ModelSerializer):
         try:
             for i in holds:
                 b = int(i)
-                if 6 > b > 1:
+                if 6 >= b >= 1:
                     continue
                 else:
                     raise ValidationError('hold nimbers out of Range')

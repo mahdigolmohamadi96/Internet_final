@@ -123,5 +123,5 @@ STATICFILES_DIRS = [
 
 REST_FRAMEWORK = {'DEFAULT_AUTHENTICATION_CLASSES':('Internet.permissions.Auth',) }
 
-
+games = dict()
 online = set()

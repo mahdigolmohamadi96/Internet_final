@@ -1,11 +1,16 @@
 
 var player = 0;
-var winlim = 100;
+
 var lstdice = 0;
 var lstdice2 = 0;
 
 document.getElementById('hold').addEventListener("click",hold);
 document.getElementById('roll').addEventListener("click",rolldice);
+
+console.log('winlimite: ' ,winlim);
+console.log('hold num: ' ,holdnum);
+console.log('maxdice:  ' , maxdice);
+console.log('dicenum :' ,dicenum);
 
 
 function newgame(){
