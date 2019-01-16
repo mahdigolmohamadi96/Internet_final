@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 import Internet
-from Internet.views import login, Home, UserHome, Signout
+from Internet.views import login, Home, UserHome, Signout, ShowMaxRate
 from Internet.views import SignUp
 from django.conf import settings
 
@@ -36,6 +36,7 @@ urlpatterns = [
     path('makeGame/',MakeGame.as_view()),
     path('playGame/',GamePlay.as_view()),
     path('gamekinds/',GameKind.as_view()),
+    path('bestGames/',ShowMaxRate.as_view())
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

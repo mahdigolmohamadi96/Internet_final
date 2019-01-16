@@ -6,13 +6,14 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework import status
 from rest_framework.authtoken.models import Token
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from Internet.models import LoginDB
 from Internet.permissions import CheckAuth
-from Internet.serializers import signUpserializer, LoginSerializer
+from Internet.serializers import signUpserializer, LoginSerializer, GameRate
 from Internet_final.settings import online
 from game.models import Gamedb
 
@@ -73,3 +74,9 @@ class Signout(APIView):
             return render(req, "logedOut.html")
         except:
             return Response("not loged out")
+
+
+class ShowMaxRate(ListAPIView):
+    serializer_class = GameRate
+    def get_queryset(self):
+        return Gamedb.objects.values('gamerate' , 'gameName').order_by('-gamerate')

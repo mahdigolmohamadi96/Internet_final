@@ -1,36 +1,55 @@
-
 var player = 0;
 
 var lstdice = 0;
 var lstdice2 = 0;
+var p1_current;
+var p1_total;
+var p2_current;
+var p2_total;
 
-document.getElementById('hold').addEventListener("click",function(){getresp("hold")});
-document.getElementById('roll').addEventListener("click", function(){getresp("roll-dice")});
-//
+
+document.getElementById('hold').addEventListener("click", function () {
+    getresp("hold")
+});
+document.getElementById('roll').addEventListener("click", function () {
+    getresp("roll-dice")
+});
+
 // console.log('winlimite: ', winlim);
 // console.log('hold num: ', holdnum);
 // console.log('maxdice:  ', maxdice);
 // console.log('dicenum :', dicenum);
 
+update();
 
-function jsonHandler(resp , act) {
+function jsonHandler(resp, act) {
 
-    var winlim = resp.max_score;
+    winlim = resp.max_score;
     if (act === 'roll-dice') rolldice(resp.dices);
-    if (act === 'hold') hold();
+    // if (act === 'hold')// hold();
+    if (act === ' ') update_page();
 
     var holdnum = resp.hold;
-    if (resp.turn) {
+    if (resp.turn!==0) {
         player = 0;
     } else player = 1;
-    var dicenum = resp.dice_count;
-    var p1_current = resp.p1_current;
-    var p1_total = resp.p1_total;
-    var p2_current = resp.p2_current;
-    var p2_total = resp.p2_total;
-    var winner = resp.winner;
+    console.log('turn is:' , resp.turn , 'turrrrn isss:' , player);
+    changePlayer();
+    dicenum = resp.dice_count;
+    p1_current = resp.player1_current;
+    p1_total = resp.player1_total;
+    p2_current = resp.player2_current;
+    p2_total = resp.player2_total;
+    winner = resp.winner;
 
 
+}
+
+function update_page() {
+    document.getElementById("curr0").innerHTML = p1_current;
+    document.getElementById("curr1").innerHTML = p2_current;
+    document.getElementById("point0").innerHTML = p1_total;
+    document.getElementById("point1").innerHTML = p2_total;
 }
 
 function getresp(act = " ") {
@@ -43,11 +62,15 @@ function getresp(act = " ") {
             action: act
         }),
         success: function (data) {
-            jsonHandler(JSON.parse(data),act);
+            jsonHandler(JSON.parse(data), act);
         }
     })
 }
 
+function update() {
+    getresp();
+    setTimeout(update, 2000);
+}
 
 function newgame() {
     cuurval(0);
@@ -122,17 +145,25 @@ function changePlayer() {
 
         p1bg = document.getElementById("player1");
         p1bg.style.backgroundColor = "whitesmoke";
+
         // consol.log(p1bg.style.backgroundColor);
         lastdice = 0;
         lastdice2 = 0;
+
         player = 1;
+
+        $('#wait').hide();
+        $('#keys').show();
     } else if (player == 1) {
         bg2 = document.getElementById("player1");
         bg2.style.backgroundColor = 'white';
 
         p1bg2 = document.getElementById("player0");
         p1bg2.style.backgroundColor = 'whitesmoke';
+
         player = 0;
+        $('#wait').show();
+        $('#keys').hide();
 
     }
 

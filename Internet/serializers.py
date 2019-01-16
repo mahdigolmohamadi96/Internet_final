@@ -5,6 +5,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from Internet.models import LoginDB
+from game.models import Gamedb
 
 logger = logging.getLogger('django')
 
@@ -41,4 +42,10 @@ class signUpserializer (serializers.ModelSerializer):
 
     def create(self, validated_data):
         return LoginDB.objects.create_user(**validated_data)
+
+class GameRate(serializers.ModelSerializer):
+    class Meta:
+        model = Gamedb
+        fields = ('gameName' , 'gamerate')
+
 
