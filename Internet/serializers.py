@@ -5,7 +5,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from Internet.models import LoginDB
-from game.models import Gamedb
+from game.models import Gamedb, GameComment
 
 logger = logging.getLogger('django')
 
@@ -48,4 +48,24 @@ class GameRate(serializers.ModelSerializer):
         model = Gamedb
         fields = ('gameName' , 'gamerate')
 
+class MaxPlayed(serializers.ModelSerializer):
+    class Meta:
+        model = Gamedb
+        fields = ('gameName' , 'playedTimes')
+
+
+class NewGames(serializers.ModelSerializer):
+    class Meta:
+        model = Gamedb
+        fields = ('gameName' , 'date' , 'gamerate')
+
+class Comment(serializers.ModelSerializer):
+
+    def validate_user(self, data):
+        print(self.context['request'].user)
+        return self.context['request'].user
+
+    class Meta:
+        model = GameComment
+        fields = ('text' , 'stars' , 'game')
 

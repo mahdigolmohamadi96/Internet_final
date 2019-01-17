@@ -10,7 +10,7 @@ from Internet.models import LoginDB
 class Gamedb(models.Model):
     gameName= models.CharField(max_length=30 , default='')
     gamerate = models.IntegerField(default=0) #game rates(points)
-    date = models.DateTimeField(auto_now=True)
+    date = models.DateField(auto_now=True)
     max = models.IntegerField(default=100)
     hold = models.CharField(max_length=10)
     dice = models.IntegerField(default=1)
@@ -22,8 +22,19 @@ class Gamedb(models.Model):
     playedUsers = models.IntegerField(default=0)# how many people played
 
 
+class GameComment(models.Model):
+    text = models.CharField(max_length=1000 , default='')
+    user = models.ForeignKey(LoginDB , on_delete=models.CASCADE)
+    accpt = models.BooleanField(default=False)
+    game = models.ForeignKey(Gamedb , on_delete=models.CASCADE)
+    stars = models.FloatField(default=0)
 
 
+class UserComment(models.Model):
+    text = models.CharField(max_length=1000 , default='')
+    user = models.ForeignKey(LoginDB , on_delete=models.CASCADE)
+    accpt = models.BooleanField(default=False)
+    touser = models.ForeignKey(Gamedb , on_delete=models.CASCADE)
 
 class GameData:
     def __init__(self, dice_count, max_score, hold):

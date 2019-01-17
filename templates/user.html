@@ -29,15 +29,22 @@
                 <div class="carousel-inner">
                     <div class="item active">
                         <p>first</p>
+                        <p>{{ bestGame }}</p>
                     </div>
 
                     <div class="item">
                         <p>second</p>
+                        <p>{{ mostOnline }}</p>
                     </div>
 
                     <div class="item">
                         <p>third</p>
+                        <p>{{ bestNew }}</p>
                     </div>
+                </div>
+                <div>
+                    
+
                 </div>
 
                 <!-- Left and right controls -->
@@ -51,7 +58,22 @@
                 </a>
             </div>
 
-
-
-
 {% endblock content %}
+
+{% block scripts %}
+    <script>
+    $(document).ready(function () {
+        $.ajax({
+            url:'/bestGames',
+            type:'GET',
+            success:function (res) {
+                {#alert(res[0].gameName)#}
+                var bestGames = [];
+                for (i=0 ; i< res.length ; i++){
+                    bestGames.push(res[i].gameName);
+                }
+            }
+        })
+    })
+</script>
+{% endblock scripts %}
