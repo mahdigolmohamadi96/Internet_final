@@ -50,3 +50,5 @@ class GameData:
         self.winner = None
         self.hold = hold
         self.mid = None
+        self.turn_id = -10
+        self.user_id = 0

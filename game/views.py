@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from Internet.permissions import CheckAuth, Auth
-from Internet_final.settings import games, gamesPlay
+from Internet_final.settings import games, gamesPlay, which
 from game import serializer
 from game.models import Gamedb, GameData
 from game.serializer import MakeGameSerializer
@@ -39,33 +39,42 @@ class GamePlay(APIView):
 
     @staticmethod
     def get(req):
+
         game_id = req.query_params.get('id')
         if game_id:
             game = Gamedb.objects.get(id=game_id)
             if (len(gamesPlay) == 0):
+                which.clear()
                 new_game = GameData(game.dice, game.max, [int(x) for x in game.hold.split(',')])
                 games[new_game.id] = new_game
                 gamesPlay.add(new_game)
-            else : new_game = gamesPlay.pop()
+                which.append(req.user.id)
+            else:
+                new_game = gamesPlay.pop()
+                which.append(req.user.id)
 
             return render(req, "internet.html",
                           {'winlimit': game.max, 'holdnum': game.hold, 'maxdice': game.dicetimes, 'dicenum': game.dice,
                            'gameid': new_game.id, 'dice': [1, 2], 'turn': 0, 'p1_current': 0, 'p1_total': 0,
-                           'p2_current': 0, 'p2_total':0 , 'winner': 2 })
+                           'p2_current': 0, 'p2_total': 0, 'winner': 2})
         raise NotFound('Game not found!')
 
     @staticmethod
     def post(request):
         action = request.data.get('action')
         game_id = request.data.get('game_id')
+        user_id = request.data.get('user_id')
+
         if not game_id:
             raise ValidationError('game_id not found')
         if not action:
             raise ValidationError('action not found')
         game: GameData = games.get(game_id)
+
         if not game:
             raise NotFound('game not found')
         game.mid = request.user.id
+
         if action == 'roll-dice':
             randoms = []
             change_turn = False
@@ -74,15 +83,14 @@ class GamePlay(APIView):
                 change_turn = change_turn or (rand in game.hold)
                 randoms.append(rand)
             if change_turn:
-                # game.turn = not game.turn
+                game.turn = not game.turn
 
-
-                print(request.user.id)
-                if game.turn == request.user.id:
-                    game.turn =0
-                elif game.turn == 0:
-                    game.turn = request.user.id
-                print(game.turn)
+                # print(request.user.id)
+                # if game.turn == request.user.id:
+                #     game.turn =0
+                # elif game.turn == 0:
+                #     game.turn = request.user.id
+                # print(game.turn)
 
                 game.player1_current = 0
                 game.player2_current = 0
@@ -96,21 +104,30 @@ class GamePlay(APIView):
             game.player1_current = 0
             game.player2_total += game.player2_current
             game.player2_current = 0
-            # game.turn = not game.turn
+            game.turn = not game.turn
 
-
-            if game.turn == request.user.id:
-                game.turn = 0
-            elif game.turn == 0:
-                game.turn = request.user.id
-            print(game.turn)
-
+            # if game.turn == request.user.id:
+            #     game.turn = 0
+            # elif game.turn == 0:
+            #     game.turn = request.user.id
+            # print(game.turn)
 
             if game.player1_total >= game.max_score:
-                game.winner = True
+                game.winner = which[0]
             if game.player2_total >= game.max_score:
-                game.winner = False
+                game.winner = which[1]
         # print(game.__dict__)
+
+        print('which is:', which)
+        print('user id', request.user.id)
+        print('turn is:', game.turn)
+        if game.turn:
+            game.turn_id = which[0]
+        else:
+            game.turn_id = which[1]
+        game.user_id = request.user.id
+        print('turn id is : ', game.turn_id)
+
         return Response(json.dumps(game.__dict__))
 
 
@@ -121,5 +138,3 @@ class GameKind(APIView):
     def get(self, req):
         a = Gamedb.objects.all()
         return render(req, "gameSelect.html", {'games': a})
-
-
