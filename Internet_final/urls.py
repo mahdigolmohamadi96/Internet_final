@@ -39,7 +39,7 @@ urlpatterns = [
     path('bestGames/',ShowMaxRate.as_view()),
     path('mostGamesPlayed/',ShowMaxPlayed.as_view()),
     path('newGames/',ShowNewGames.as_view()),
-    path('rateGame/',get_rate ),
+    path('rateGame/', get_rate ),
     path('rated/',RateGames.as_view(), name='rateGame' )
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

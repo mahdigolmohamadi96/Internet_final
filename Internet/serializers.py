@@ -5,7 +5,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from Internet.models import LoginDB
-from game.models import Gamedb, GameComment
+from game.models import Gamedb, GameComment, UserComment
 
 logger = logging.getLogger('django')
 
@@ -16,7 +16,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LoginDB
-        fields = ('username','password')
+        fields = ('username', 'password')
 
     # def validate(self, data):
     #     username = data.get('username')
@@ -34,30 +34,33 @@ class LoginSerializer(serializers.ModelSerializer):
     #     else:
     #         raise ValidationError('username cannot be empty')
 
-class signUpserializer (serializers.ModelSerializer):
+
+class signUpserializer(serializers.ModelSerializer):
     class Meta:
         model = LoginDB
-        fields = ('username','password' , 'first_name' , 'last_name' , 'email' , 'sex','birth_date')
-
+        fields = ('username', 'password', 'first_name', 'last_name', 'email', 'sex', 'birth_date')
 
     def create(self, validated_data):
         return LoginDB.objects.create_user(**validated_data)
 
+
 class GameRate(serializers.ModelSerializer):
     class Meta:
         model = Gamedb
-        fields = ('gameName' , 'gamerate')
+        fields = ('gameName', 'gamerate')
+
 
 class MaxPlayed(serializers.ModelSerializer):
     class Meta:
         model = Gamedb
-        fields = ('gameName' , 'playedTimes')
+        fields = ('gameName', 'playedTimes')
 
 
 class NewGames(serializers.ModelSerializer):
     class Meta:
         model = Gamedb
-        fields = ('gameName' , 'date' , 'gamerate')
+        fields = ('gameName', 'date', 'gamerate')
+
 
 class Comment(serializers.ModelSerializer):
 
@@ -67,5 +70,15 @@ class Comment(serializers.ModelSerializer):
 
     class Meta:
         model = GameComment
-        fields = ('text' , 'stars' , 'game')
+        fields = ('text', 'stars', 'game')
 
+
+class CommentUser(serializers.ModelSerializer):
+
+    # def validate_user(self, data):
+    #     print(self.context['request'].user)
+    #     return self.context['request'].user
+
+    class Meta:
+        model = UserComment
+        fields = ('text', 'user', 'touser')

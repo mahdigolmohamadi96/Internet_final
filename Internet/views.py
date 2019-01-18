@@ -16,9 +16,9 @@ from rest_framework.views import APIView
 
 from Internet.models import LoginDB
 from Internet.permissions import CheckAuth, Auth
-from Internet.serializers import signUpserializer, LoginSerializer, GameRate, MaxPlayed, NewGames, Comment
-from Internet_final.settings import online
-from game.models import Gamedb, GameComment
+from Internet.serializers import signUpserializer, LoginSerializer, GameRate, MaxPlayed, NewGames, Comment, CommentUser
+from Internet_final.settings import online, which
+from game.models import Gamedb, GameComment, UserComment
 
 
 class login(APIView):
@@ -121,13 +121,21 @@ def get_rate(req):
 
 class RateGames(APIView):
     authentication_classes = (Auth,)
-    serializer_class = Comment
-    queryset = GameComment.objects.all()
+
+    # serializer_class = Comment
+    # queryset = GameComment.objects.all()
 
     def post(self, req):
-        a = self.serializer_class(data=req.data)
+        a = Comment(data=req.data)
         a.is_valid(True)
         com = GameComment(**a.validated_data)
         com.user = req.user
         com.save()
+        b = CommentUser(data=req.data)
+        b.is_valid(True)
+        com2 = UserComment(**b.validated_data)
+        com2.user = b.validated_data['user']
+        com2.touser = b.validated_data['touser']
+        com2.save()
+
         return Response('mmammmad nooobari')

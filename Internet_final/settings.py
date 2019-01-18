@@ -126,5 +126,5 @@ REST_FRAMEWORK = {'DEFAULT_AUTHENTICATION_CLASSES':('Internet.permissions.Auth',
 games = dict()
 online = set()
 gamesPlay = set()
-which =[]
+which =[-10,-10]
 

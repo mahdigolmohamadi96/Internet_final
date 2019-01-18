@@ -56,7 +56,7 @@ class GamePlay(APIView):
             return render(req, "internet.html",
                           {'winlimit': game.max, 'holdnum': game.hold, 'maxdice': game.dicetimes, 'dicenum': game.dice,
                            'gameid': new_game.id, 'dice': [1, 2], 'turn': 0, 'p1_current': 0, 'p1_total': 0,
-                           'p2_current': 0, 'p2_total': 0, 'winner': 2})
+                           'p2_current': 0, 'p2_total': 0, 'winner': 2 , 'u1':which[0] , 'u2' : which[1]})
         raise NotFound('Game not found!')
 
     @staticmethod

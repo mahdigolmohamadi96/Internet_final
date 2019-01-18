@@ -6,6 +6,7 @@ var p1_current;
 var p1_total;
 var p2_current;
 var p2_total;
+var gamefinished = false;
 
 
 document.getElementById('hold').addEventListener("click", function () {
@@ -42,6 +43,12 @@ function jsonHandler(resp, act) {
     } else {
         player = 0;
         handleWait(player);
+    }
+
+    if (u1 !== resp.user_id){
+        var tmp = u1;
+        u2 = tmp;
+        u1 = resp.user_id;
     }
 
     winlim = resp.max_score;
@@ -111,7 +118,9 @@ function getresp(act = " ") {
 
 function update() {
     getresp();
-    setTimeout(update, 2000);
+    if (!gamefinished) {
+        setTimeout(update, 2000);
+    }
 }
 
 
@@ -240,18 +249,26 @@ function rolldice(dices) {
 
 function wincheck(resp) {
     if (resp.winner === resp.user_id) {
-        p = document.getElementById("playern1");
-        p.style.color = 'red';
-        p.innerHTML = 'winer!!!';
-        document.getElementById('hold').removeEventListener("click", hold);
-        document.getElementById('roll').removeEventListener("click", rolldice);
-    } else if (resp.winner !== null) {
-        console.log('winner is : ', winner);
         p = document.getElementById("playern0");
         p.style.color = 'red';
         p.innerHTML = 'winer!!!';
         document.getElementById('hold').removeEventListener("click", hold);
         document.getElementById('roll').removeEventListener("click", rolldice);
+        gamefinished = true;
+        const urlParams = new URLSearchParams(window.location.search);
+        const game_id = urlParams.get('id');
+        window.open('/rateGame/?id=' + game_id + '&u1=' + u1 + '&u2=' + u2);
+    } else if (resp.winner !== null) {
+        console.log('winner is : ', winner);
+        p = document.getElementById("playern1");
+        p.style.color = 'red';
+        p.innerHTML = 'winer!!!';
+        document.getElementById('hold').removeEventListener("click", hold);
+        document.getElementById('roll').removeEventListener("click", rolldice);
+        gamefinished = true;
+        const urlParams = new URLSearchParams(window.location.search);
+        const game_id = urlParams.get('id');
+        window.open('/rateGame/?id=' + game_id + '&u1=' + u1 + '&u2=' + u2);
     }
 
 

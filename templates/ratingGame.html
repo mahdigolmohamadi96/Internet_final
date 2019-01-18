@@ -18,10 +18,11 @@
                    value="2">
 
             <input name = "game" id="gameid" type="hidden" >
-            <input name = "user" type="hidden" >
+            <input name = "user" id="user" type="hidden" >
+            <input name = "touser" id="touserid" type="hidden" >
             <div class="container">
                 <div class="row">
-                    <h3>add you're comment</h3>
+                    <h3>add you're comment to game</h3>
                 </div>
 
                 <div class="row">
@@ -31,16 +32,6 @@
                             <div class="status-upload">
                                 {#                            <form>#}
                                 <textarea name="text" class="form-control" placeholder="What are you doing right now?"></textarea>
-{#                                <ul>#}
-{#                                    <li><a title="" data-toggle="tooltip" data-placement="bottom"#}
-{#                                           data-original-title="Audio"><i class="fa fa-music"></i></a></li>#}
-{#                                    <li><a title="" data-toggle="tooltip" data-placement="bottom"#}
-{#                                           data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>#}
-{#                                    <li><a title="" data-toggle="tooltip" data-placement="bottom"#}
-{#                                           data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>#}
-{#                                    <li><a title="" data-toggle="tooltip" data-placement="bottom"#}
-{#                                           data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>#}
-{#                                </ul>#}
                                 <button type="submit" class="btn btn-success green pull-right"><i class="fa fa-share"></i> Share
                                 </button>
                                 {#                            </form>#}
@@ -50,6 +41,30 @@
 
                 </div>
             </div>
+
+             <div class="container">
+                <div class="row">
+                    <h3>add you're comment to tpure opponent</h3>
+                </div>
+
+                <div class="row">
+
+{#                    <div class="col-md-6">#}
+                        <div class="widget-area no-padding blank">
+                            <div class="status-upload">
+                                {#                            <form>#}
+                                <textarea name="text" class="form-control" placeholder="What are you doing right now?"></textarea>
+                                <button type="submit" class="btn btn-success green pull-right"><i class="fa fa-share"></i> Share
+                                </button>
+                                {#                            </form>#}
+                            </div><!-- Status Upload  -->
+                        </div><!-- Widget Area -->
+{#                    </div>#}
+
+                </div>
+            </div>
+
+
         </form>
     </div>
 </div>
@@ -65,7 +80,12 @@
     $(document).ready(function () {
             const urlParams = new URLSearchParams(window.location.search);
             const game_id = urlParams.get('id');
-            $('#gameid').val(game_id)
+            $('#gameid').val(game_id);
+            const u2 = urlParams.get('u2');
+            $('#touserid').val(u2);
+            const u1 = urlParams.get('u1');
+            $('#user').val(u1);
+            alert(u2);
         })
 
 

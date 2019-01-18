@@ -32,9 +32,9 @@ class GameComment(models.Model):
 
 class UserComment(models.Model):
     text = models.CharField(max_length=1000 , default='')
-    user = models.ForeignKey(LoginDB , on_delete=models.CASCADE)
+    user = models.ForeignKey(LoginDB , on_delete=models.CASCADE , related_name='user', blank=True , null=True)
     accpt = models.BooleanField(default=False)
-    touser = models.ForeignKey(Gamedb , on_delete=models.CASCADE)
+    touser = models.ForeignKey(LoginDB , on_delete=models.CASCADE , related_name='touser' , null=True)
 
 class GameData:
     def __init__(self, dice_count, max_score, hold):
