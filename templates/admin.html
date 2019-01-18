@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+its admins page
+
+
+<div>
+    {% for cmt in comments %}
+        <p>{{ cmt.text }}</p>
+        <form action="" method="POST">
+            <input type="hidden" name="cmt-id" value="{{ cmt.id }}">
+            <button type="submit" name="accept">accept</button>
+            
+        </form>
+        <br>
+    {% endfor %}
+</div>
+
+
+</body>
+</html>

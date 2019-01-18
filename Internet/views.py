@@ -16,7 +16,8 @@ from rest_framework.views import APIView
 
 from Internet.models import LoginDB
 from Internet.permissions import CheckAuth, Auth
-from Internet.serializers import signUpserializer, LoginSerializer, GameRate, MaxPlayed, NewGames, Comment, CommentUser
+from Internet.serializers import signUpserializer, LoginSerializer, GameRate, MaxPlayed, NewGames, Comment, CommentUser, \
+    GameComent, ShowUserComment
 from Internet_final.settings import online, which
 from game.models import Gamedb, GameComment, UserComment
 
@@ -51,7 +52,7 @@ class SignUp(APIView):
     def post(self, req):
         s = signUpserializer(data=req.data)
         s.is_valid(True)
-
+        s.save()
         return HttpResponseRedirect(redirect_to='profile.html')
 
 
@@ -62,15 +63,27 @@ class Home(APIView):
         # print('req == ', req.user)
         a = LoginDB.objects.get(username=req.user)
         # print(Gamedb.objects.values('gamerate', 'gameName').order_by('-gamerate')[0])
-        return render(req, "user.html", {'Username': a.username, 'bestGame':
+        if not req.auth:
+            return render(req, "user.html", {'Username': a.username, 'bestGame':
 
-            Gamedb.objects.values('gamerate', 'gameName').order_by('-gamerate')[0]['gameName'], 'mostOnline': 0,
-                                         'bestNew':
-                                             Gamedb.objects.values('date', 'gameName', 'gamerate').order_by('-date',
-                                                                                                            'gamerate')[
-                                                 0]['gameName'],
-                                         'onlines': [x.username for x in online], 'mail': a.email, 'name': a.first_name,
-                                         'lstname': a.last_name})
+                Gamedb.objects.values('gamerate', 'gameName').order_by('-gamerate')[0]['gameName'], 'mostOnline': 0,
+                                             'bestNew':
+                                                 Gamedb.objects.values('date', 'gameName', 'gamerate').order_by('-date',
+                                                                                                                'gamerate')[
+                                                     0]['gameName'],
+                                             'onlines': [x.username for x in online], 'mail': a.email,
+                                             'name': a.first_name,
+                                             'lstname': a.last_name})
+        elif req.auth:
+            a = GameComment.objects.all()
+            return render(req, "admin.html", {'comments': a})
+
+    def post(self, req):
+        cmtid = req.data.get("cmt-id")
+        cmt = GameComment.objects.get(id=int(cmtid))
+        cmt.accpt = True
+        cmt.save()
+        return Response('you succesfully accept')
 
 
 class UserHome(APIView):
@@ -112,6 +125,22 @@ class ShowNewGames(ListAPIView):
 
     def get_queryset(self):
         return Gamedb.objects.values('date', 'gameName', 'gamerate').order_by('-date', 'gamerate')
+
+
+# API
+class ShowGameComments(ListAPIView):
+    serializer_class = GameComent
+
+    def get_queryset(self):
+        return GameComment.objects.values('user', 'game', 'text')
+
+
+# API
+class ShowUserCommentAPI(ListAPIView):
+    serializer_class = ShowUserComment
+
+    def get_queryset(self):
+        return GameComment.objects.values('user', 'touser', 'text')
 
 
 @api_view(['GET'])

@@ -28,5 +28,5 @@ class Auth(BaseAuthentication):
             return None
             # raise AuthenticationFailed('ridi')
         online.add(user)
-        return (user , None)
+        return (user , user.isadmin)
 

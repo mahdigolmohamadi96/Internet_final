@@ -62,6 +62,17 @@ class NewGames(serializers.ModelSerializer):
         fields = ('gameName', 'date', 'gamerate')
 
 
+class GameComent(serializers.ModelSerializer):
+    class Meta:
+        model = GameComment
+        fields = ('text', 'user' , 'game')
+
+class ShowUserComment(serializers.ModelSerializer):
+    class Meta:
+        model = UserComment
+        fields = ('text', 'user' , 'touser')
+
+
 class Comment(serializers.ModelSerializer):
 
     def validate_user(self, data):
